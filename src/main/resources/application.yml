@@ -1,0 +1,32 @@
+server:
+  port: 8082
+  
+
+
+
+###springboot -> kafka
+spring:
+  kafka:
+    bootstrap-servers: 
+      - 127.0.0.1:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      
+    consumer: 
+      group-id: ituac-kafka01
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      
+logging: 
+  level:
+    xatu.zsl: debug   #不同目录下的日志可配置不同级别
+    org.springfromework.web: info
+    org.hibernate: error
+  file: logs\ituac.log   #采用相对路径方式将日志文件输出到【logs\ituac.log】
+
+      
+      
+

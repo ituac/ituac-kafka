@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+
+<configuration>
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>
+                    %d - %msg%n
+                </pattern>
+        </layout>
+    </appender>
+    <!--打印INFO日志-->
+    <appender name="fileinfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--配置输出INFO 日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>
+                %msg%n
+            </pattern>
+        </encoder>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--路径-->
+            <fileNamePattern>logs/ituac-kafka-info.%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+    <!--打印错误日志-->
+    <appender name="fileerrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--配置输出ERROR 日志-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            ERROR
+        </filter>
+        <encoder>
+            <pattern>
+                %msg%n
+            </pattern>
+        </encoder>
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--路径-->
+            <fileNamePattern>logs/ituac-kafka-error.%d.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!--引入配置项-->
+    <root level="info">
+        <appender-ref ref="consoleLog"/>
+        <appender-ref ref="fileinfoLog"/>
+        <appender-ref ref="fileerrorLog"/>
+    </root>
+    
+</configuration>
